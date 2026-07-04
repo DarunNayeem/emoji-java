@@ -29,6 +29,9 @@ public class EmojiManager {
     InputStream stream = null;
     try {
       stream = EmojiLoader.class.getResourceAsStream(PATH);
+      if (stream == null) {
+        throw new IllegalStateException("Emoji database not found on classpath: " + PATH);
+      }
       List<Emoji> emojis = EmojiLoader.loadEmojis(stream);
       ALL_EMOJIS = emojis;
       indexEmojis(emojis);
